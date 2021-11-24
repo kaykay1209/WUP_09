@@ -78,9 +78,43 @@ Both graphs show that as Length1 increases, weight follows and increases as well
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
 
+```{r}
+library(leaps)
+regsubsets.out <-
+    regsubsets(Weight ~ .,
+               data = select (Perch,-Species),
+               nbest = 1,       # 1 best model for each number of predictors
+               nvmax = NULL,    # NULL for no limit on number of variables
+               force.in = NULL, force.out = NULL,
+               method = "exhaustive")
+
+summary.out <- summary(regsubsets.out)
+as.data.frame(summary.out$outmat)
+library(car)
+subsets(regsubsets.out,statistic="adjr2",legend="bottomright",main="Adjusted R^2")
+```
+
+The graph shows that the Y axis is adjusted R squared, and the X axis is the number of variables used in a linear fit. The graph shows that the best fit comes from using the two variables height and width; subset 2 is the best fit. 
+
+```{r}
+which.max(summary.out$adjr2)
+```
+
+```{r}
+summary.out$which[2,]
+```
+The summary shows which two variables are best, which is Height and Width. 
 
 
+```{r}
+best.model <- lm(Weight~Height+Width,data=Perch)
+summary(best.model)
+fullup=lm(Weight~.,data= select (Perch, -Species))
+```
 
+We made a linear model based on height and width; it shows that the best prediction for weight= -536 + 74.77 * height +69.62 *width.
+
+This equation is the best fit for predicting the weight of the perch using the two variables, width and height. 
 
 
 ## Inferential Results
