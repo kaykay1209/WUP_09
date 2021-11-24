@@ -38,23 +38,50 @@ obtain subset of fish that contains the species we want to analyze, then we will
 Perch =filter(Fish,Species=="Perch")
 ```
 
-
-
 # Results 
 
 <!--Divide this section into two sub-sections:  One for your descriptive  results and one for your inferential results.!-->
 
 
-
 ## Descriptive Results
+
+
 
 ### Graphical Descriptive Results
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
+
+```{r}
+basicNN <- ggplot(Perch,aes(y=Weight,x=Length1))
+```
+
+## Now add in scatterplot 
+
+```{r}
+basicNN + geom_point()
+```
+
+The scatterplot shows that as the length1 of a Perch goes up, its length also goes up. This means that Length1 is a good determining factor for weight, and vice versa weight of a perch is a good determining factor for predicting length1. 
+
+
+```{r}
+basicNN + geom_point() + geom_smooth(method=lm)
+```
+
+Both graphs show that as Length1 increases, weight follows and increases as well. It looks like a straight line is not a great fit because most of the points dont fall evenly around the blue line. We still need more tests to find the best variables. 
+
+
+
 ### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+
+
+
+
+
+
 
 ## Inferential Results
 
